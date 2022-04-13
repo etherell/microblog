@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
   before_action :configure_permitted_parameters, if: :devise_controller?
   # Default homepage
   def index; end
@@ -7,5 +8,9 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
+  end
+
+  def not_found
+    render body: nil, status: :not_found
   end
 end

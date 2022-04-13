@@ -48,4 +48,8 @@ RSpec.describe User, type: :model do
       expect(user.valid?).to be false
     end
   end
+
+  describe "association" do
+    it { is_expected.to have_many(:likes).dependent(:destroy) }
+  end
 end
